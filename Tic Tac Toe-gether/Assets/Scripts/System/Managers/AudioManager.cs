@@ -29,7 +29,7 @@ public sealed class AudioManager : PersistentSingleton<AudioManager>
 
 	private void Start()
 	{
-		Play("Main Theme");
+		//Play("Main Theme");
 	}
 
 	/// <summary>

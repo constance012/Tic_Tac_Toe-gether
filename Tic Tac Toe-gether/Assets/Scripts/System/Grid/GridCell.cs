@@ -3,11 +3,11 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
 	[Header("Cell Coordinates"), Space]
-	[SerializeField] private float x;
-	[SerializeField] private float y;
+	[SerializeField] private int x;
+	[SerializeField] private int y;
 
 	private void OnMouseDown()
 	{
-		Debug.Log($"Click cell: [{x}, {y}]");
+		GameManager.Instance.GridCellClicked(x, y);
 	}
 }
