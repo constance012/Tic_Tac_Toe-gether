@@ -4,10 +4,10 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using CSTGames.Utility;
 
-public abstract class MultiplePrefabsPool<TSingleton, TType, TPoolable> : MonoSingleton<TSingleton>
-												where TType : Enum
-												where TPoolable : MonoBehaviour, IPoolable
-												where TSingleton : MultiplePrefabsPool<TSingleton, TType, TPoolable>
+public abstract class NetworkMultiplePrefabsPool<TSingleton, TType, TPoolable> : NetworkSingleton<TSingleton>
+													   where TType : Enum
+													   where TPoolable : MonoBehaviour, IPoolable
+													   where TSingleton : NetworkMultiplePrefabsPool<TSingleton, TType, TPoolable>
 {
 	[Header("Singleton Settings"), Space]
 	[SerializeField] protected bool markAsSingleton;

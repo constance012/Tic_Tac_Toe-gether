@@ -1,7 +1,8 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class MarksGraphicManager : MultiplePrefabsPool<MarksGraphicManager, MarkType, PlayerMark>
+// Scripts that contain RPC methods must be inherited from the "NetworkBehaviour" class.
+public class MarksGraphicManager : NetworkMultiplePrefabsPool<MarksGraphicManager, MarkType, PlayerMark>
 {
 	private const float GRID_SIZE = 3f;
 
@@ -17,9 +18,18 @@ public class MarksGraphicManager : MultiplePrefabsPool<MarksGraphicManager, Mark
 
 	private void GameManager_OnGridCellClicked(object sender, GridCellClickedEventArgs e)
 	{
-		PlayerMark spawnedMark = Spawn(MarkType.Nought, ToWorldPosition(e.x, e.y), Quaternion.identity);
+		Debug.Log("GameManager_OnGridCellClicked");
+		SpawnMarkOnGridRpc(e.x, e.y);
+	}
+
+	[Rpc(SendTo.Server)]
+	private void SpawnMarkOnGridRpc(int x, int y)  // Rpc methods signature must end with "Rpc" suffix.
+	{
+		Debug.Log("SpawnMarkOnGrid");
+		PlayerMark spawnedMark = Spawn(MarkType.Nought);
 		
 		spawnedMark.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
+		spawnedMark.transform.position = ToWorldPosition(x, y);
 	}
 
 	private Vector3 ToWorldPosition(int gridX, int gridY)

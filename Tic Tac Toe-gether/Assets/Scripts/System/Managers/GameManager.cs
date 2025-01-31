@@ -1,14 +1,11 @@
 using System;
-using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoSingleton<GameManager>
 {
 	public event EventHandler<GridCellClickedEventArgs> OnGridCellClicked;
 
 	public void GridCellClicked(int coordX, int coordY)
 	{
-		Debug.Log($"Click cell: [{coordX}, {coordY}]");
-
 		OnGridCellClicked?.Invoke(this, new GridCellClickedEventArgs()
 		{
 			x = coordX,

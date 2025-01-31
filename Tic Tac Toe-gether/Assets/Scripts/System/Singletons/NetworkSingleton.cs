@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using Unity.Netcode;
 
 /// <summary>
-/// Makes a temporary singleton reference for the current scene only, which will be destroy upon scene transitions.
+/// Makes a temporary network singleton reference for the current scene only, which will be destroy upon scene transitions.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class NetworkSingleton<T> : NetworkBehaviour where T : NetworkBehaviour
 {
 	public static T Instance { get; protected set; }
 
