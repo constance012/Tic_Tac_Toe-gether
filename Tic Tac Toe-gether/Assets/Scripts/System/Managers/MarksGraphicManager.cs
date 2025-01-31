@@ -26,10 +26,9 @@ public class MarksGraphicManager : NetworkMultiplePrefabsPool<MarksGraphicManage
 	private void SpawnMarkOnGridRpc(int x, int y)  // Rpc methods signature must end with "Rpc" suffix.
 	{
 		Debug.Log("SpawnMarkOnGrid");
-		PlayerMark spawnedMark = Spawn(MarkType.Nought);
+		PlayerMark spawnedMark = Spawn(MarkType.Nought, ToWorldPosition(x, y), Quaternion.identity);
 		
 		spawnedMark.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
-		spawnedMark.transform.position = ToWorldPosition(x, y);
 	}
 
 	private Vector3 ToWorldPosition(int gridX, int gridY)
