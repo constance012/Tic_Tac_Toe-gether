@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 82022504}
+  - component: {fileID: 82022506}
   - component: {fileID: 82022505}
   m_Layer: 0
   m_Name: Game Manager
@@ -163,6 +164,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9cdf165c8fe06478ebda8e198de46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &82022506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82022503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2201840527
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &148116565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,15 +2320,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2915366111551071072, guid: d14ed9a5930af234ebe1739c9a49aed3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.86876947
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2915366111551071072, guid: d14ed9a5930af234ebe1739c9a49aed3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5114848
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2915366111551071072, guid: d14ed9a5930af234ebe1739c9a49aed3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.012952022
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2915366111551071072, guid: d14ed9a5930af234ebe1739c9a49aed3, type: 3}
       propertyPath: m_LocalRotation.w

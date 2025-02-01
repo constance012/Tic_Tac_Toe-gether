@@ -8,6 +8,6 @@ public class GridCell : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		GameManager.Instance.GridCellClicked(x, y);
+		GameManager.Instance.GridCellClickedRpc(x, y, GameManager.Instance.LocalMarkType);
 	}
 }

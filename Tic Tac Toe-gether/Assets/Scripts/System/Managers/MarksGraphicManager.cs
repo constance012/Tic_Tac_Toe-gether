@@ -19,14 +19,16 @@ public class MarksGraphicManager : NetworkMultiplePrefabsPool<MarksGraphicManage
 	private void GameManager_OnGridCellClicked(object sender, GridCellClickedEventArgs e)
 	{
 		Debug.Log("GameManager_OnGridCellClicked");
-		SpawnMarkOnGridRpc(e.x, e.y);
+		SpawnMarkOnGridRpc(e.x, e.y, e.markType);
 	}
 
+	// RPC methods signature must end with "Rpc" suffix.
+	// RPC methods don't support object-type parameters. If absolutely need to to something like that, use the "NetworkObjectReference" struct.
 	[Rpc(SendTo.Server)]
-	private void SpawnMarkOnGridRpc(int x, int y)  // Rpc methods signature must end with "Rpc" suffix.
+	private void SpawnMarkOnGridRpc(int x, int y, MarkType type)
 	{
 		Debug.Log("SpawnMarkOnGrid");
-		PlayerMark spawnedMark = Spawn(MarkType.Nought, ToWorldPosition(x, y), Quaternion.identity);
+		PlayerMark spawnedMark = Spawn(type, ToWorldPosition(x, y), Quaternion.identity);
 		
 		spawnedMark.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
 	}
@@ -39,6 +41,7 @@ public class MarksGraphicManager : NetworkMultiplePrefabsPool<MarksGraphicManage
 
 public enum MarkType
 {
-	Cross,
-	Nought
+	None = -1,
+	Cross = 0,
+	Nought = 1
 }
