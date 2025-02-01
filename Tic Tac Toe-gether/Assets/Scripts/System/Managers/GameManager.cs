@@ -5,8 +5,11 @@ using Unity.Netcode;
 public class GameManager : NetworkSingleton<GameManager>
 {
 	public event EventHandler<GridCellClickedEventArgs> OnGridCellClicked;
+	public event EventHandler OnGameStarted;
+	public event EventHandler OnPlayerTurnChanged;
 
 	public MarkType LocalMarkType => _localMarkType;
+	public MarkType CurrentPlayableMarkType => _currentPlayableMarkType;
 
 	// Private fields.
 	private MarkType _localMarkType;
@@ -15,16 +18,15 @@ public class GameManager : NetworkSingleton<GameManager>
 	// Call when the network connection is first established.
 	public override void OnNetworkSpawn()
 	{
-		Debug.Log($"OnNetworkSpawn: {NetworkManager.Singleton.LocalClientId}");
-
 		_localMarkType = (MarkType)NetworkManager.Singleton.LocalClientId;
 
 		if (IsServer)
 		{
-			_currentPlayableMarkType = _localMarkType;
+			NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
 		}
 	}
 
+	#region RPC methods.
 	[Rpc(SendTo.Server)]
 	public void GridCellClickedRpc(int coordX, int coordY, MarkType currentMarkType)
 	{
@@ -43,6 +45,31 @@ public class GameManager : NetworkSingleton<GameManager>
 				MarkType.Cross => MarkType.Nought,
 				_ => MarkType.Nought,
 			};
+
+			TriggerOnPlayerTurnChangedEventRpc();
+		}
+	}
+
+	[Rpc(SendTo.ClientsAndHost)]
+	private void TriggerOnGameStartedEventRpc()
+	{
+		OnGameStarted?.Invoke(this, EventArgs.Empty);
+	}
+
+	[Rpc(SendTo.ClientsAndHost)]
+	private void TriggerOnPlayerTurnChangedEventRpc()
+	{
+		OnPlayerTurnChanged?.Invoke(this, EventArgs.Empty);
+	}
+	#endregion
+
+	private void NetworkManager_OnClientConnectedCallback(ulong clientID)
+	{
+		if (NetworkManager.Singleton.ConnectedClientsList.Count == 2)
+		{
+			_currentPlayableMarkType = _localMarkType;
+
+			TriggerOnGameStartedEventRpc();
 		}
 	}
 }
