@@ -41,7 +41,7 @@ public class MarksGraphicManager : NetworkMultiplePrefabsPool<MarksGraphicManage
 
 public enum MarkType
 {
-	None = -1,
-	Cross = 0,
-	Nought = 1
+	None = 0,
+	Cross = 1,
+	Nought = 2
 }
